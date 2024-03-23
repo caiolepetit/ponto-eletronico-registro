@@ -18,4 +18,5 @@ public enum TipoRegistro {
         return Arrays.stream(TipoRegistro.values()).filter(tipoRegistro -> tipoRegistro.getCodigo() == codigo).findFirst()
                 .orElseThrow(() -> new RuntimeException("Não foi encontrado o tipo de registro"));
     }
+
 }
