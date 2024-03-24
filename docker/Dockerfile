@@ -11,6 +11,6 @@ ENV DB_HOST=${DB_HOST}
 ENV DB_DATABASE=${DB_DATABASE}
 ENV DB_PORT=${DB_PORT}
 ENV SPRING_PROFILE=${SPRING_PROFILE}
-COPY ./target/ponto-eletronico-registro-1.0.0.jar /usr/src/myapp/app.jar
+COPY ./target/ponto-eletronico-registro-0.0.1.jar /usr/src/myapp/app.jar
 WORKDIR /usr/src/myapp
 ENTRYPOINT java -Dspring.profiles.active="$SPRING_PROFILE" -jar app.jar
