@@ -11,14 +11,6 @@ on:
   push:
     branches: [ "main" ]
 
-env:
-  AWS_REGION: "us-east-1"
-  ECS_SERVICE: "ponto-eletronico-registro"
-  ECS_CLUSTER: "Ponto-Eletronico"
-  ECS_TASK_DEFINITION: "ts-ponto-eletronico-registro"                
-  CONTAINER_NAME: "registro"
-  IMAGE_TAG: ${{ github.sha }}
-
 jobs:
   build:
 
@@ -54,7 +46,7 @@ jobs:
           context: .
           file: ./docker/Dockerfile
           push: true
-          tags: ${{ secrets.DOCKERHUB_USERNAME }}/api-ponto-eletronico-registro:${{ env.IMAGE_TAG }}
+          tags: ${{ secrets.DOCKERHUB_USERNAME }}/api-ponto-eletronico-registro:lastest
   deploy:
     needs: [build]
     runs-on: ubuntu-latest
