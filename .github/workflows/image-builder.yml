@@ -13,6 +13,7 @@ on:
 
 env:
   AWS_REGION: "us-east-1"
+  DOCKER_IMAGE: ${{ secrets.DOCKERHUB_USERNAME }}/api-ponto-eletronico-registro:${{ github.sha }}
 
 jobs:
   build:
@@ -61,6 +62,18 @@ jobs:
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: ${{ env.AWS_REGION }}
+      - name: ecs task definition replacements
+        uses: fabiano-amaral/ecs-task-def-replacements@v1.0.0
+        with:
+          # aws region to be used
+          aws-region: ${{ env.AWS_REGION }}
+          # cluster that service is running
+          cluster-name: "Ponto-Eletronico"
+          service-name: "ponto-eletronico-registro"
+          task-name: "ts-ponto-eletronico-registro"
+          # JSON between '' eg '{"name": "Andrew"}'
+          replacements: '{"image": "${{ env.DOCKER_IMAGE }}"}'
+          
       - name: ECS Restart Service
         uses: apideck-libraries/ecs-restart-service@v1
         with:
