@@ -68,8 +68,9 @@ jobs:
           family: ts-ponto-eletronico-registro
           images: |
             registro=${{ env.DOCKER_IMAGE }}
-      - name: ECS Restart Service
-        uses: apideck-libraries/ecs-restart-service@v1
+      - name: ECS Deploy Service
+        uses: donaldpiret/ecs-deploy@master
         with:
-          service: "ponto-eletronico-registro"
           cluster: "Ponto-Eletronico"
+          target: ponto-eletronico-registro
+          task: ts-ponto-eletronico-registro
