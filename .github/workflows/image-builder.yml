@@ -56,9 +56,10 @@ jobs:
           context: .
           file: ./docker/Dockerfile
           push: true
-          tags: ${{ secrets.DOCKERHUB_USERNAME }}/api-ponto-eletronico-registro:$IMAGE_TAG
-          run: echo "${{ secrets.DOCKERHUB_USERNAME }}/api-ponto-eletronico-registro:$IMAGE_TAG" >> $GITHUB_OUTPUT
+          tags: ${{ secrets.DOCKERHUB_USERNAME }}/api-ponto-eletronico-registro:${{ env.IMAGE_TAG }}
+          run: echo "${{ secrets.DOCKERHUB_USERNAME }}/api-ponto-eletronico-registro:${{ env.IMAGE_TAG }}" >> $GITHUB_OUTPUT
   deploy:
+    needs: [build]
     runs-on: ubuntu-latest
 
     steps:
