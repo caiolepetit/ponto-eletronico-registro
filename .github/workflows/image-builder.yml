@@ -47,6 +47,8 @@ jobs:
           password: ${{ secrets.DOCKERHUB_TOKEN }}
       - name: Build and push Docker images
         id: build-image
+        env:
+          IMAGE_TAG: ${{ github.sha }}
         uses: docker/build-push-action@v5.1.0
         with:
           build-args: |
