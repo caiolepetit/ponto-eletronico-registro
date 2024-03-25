@@ -4,6 +4,7 @@ import br.com.fiap.pontoeletronicoregistro.domain.dto.RegistroPontoDto;
 import br.com.fiap.pontoeletronicoregistro.service.RegistroService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -20,9 +21,9 @@ public class RegistroController {
         this.registroService = registroService;
     }
 
-    @PostMapping
-    public ResponseEntity<RegistroPontoDto> registrarPonto() {
-        RegistroPontoDto registroPontoDto = registroService.registrarPonto("af9ee2ac-29b2-4e53-805d-967e16c405ac",
+    @PostMapping("/{id}")
+    public ResponseEntity<RegistroPontoDto> registrarPonto(@PathVariable String id) {
+        RegistroPontoDto registroPontoDto = registroService.registrarPonto(id,
                 LocalDateTime.now());
         return new ResponseEntity<>(registroPontoDto, HttpStatus.CREATED);
     }
