@@ -62,15 +62,12 @@ jobs:
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: ${{ env.AWS_REGION }}
-      - name: ecs task definition replacements
-        uses: fabiano-amaral/ecs-task-def-replacements@v1.0.0
+      - name: Update Task Definition
+        uses: yumemi-inc/update-ecs-task-definition-action@v1
         with:
-          aws-region: ${{ env.AWS_REGION }}
-          cluster-name: "Ponto-Eletronico"
-          service-name: "ponto-eletronico-registro"
-          # JSON between '' eg '{"name": "Andrew"}'
-          replacements: '{"image": "${{ env.DOCKER_IMAGE }}"}'
-          
+          family: ts-ponto-eletronico-registro
+          images: |
+            registro=${{ env.DOCKER_IMAGE }}
       - name: ECS Restart Service
         uses: apideck-libraries/ecs-restart-service@v1
         with:
